@@ -2,9 +2,9 @@ export interface IRestaurant {
     title: string
     image: string
     deleted: boolean
-    chef: string //IChef
+    chef: IChef
     rating: Number
-    dishes: string[] //IDish[]
+    dishes: IDish[]
 };
 
 export interface IChef {
