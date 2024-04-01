@@ -5,6 +5,7 @@ export interface IRestaurant {
     chef: IChef
     rating: Number
     dishes: IDish[]
+    isEditing: boolean
 };
 
 export interface IChef {
@@ -14,6 +15,7 @@ export interface IChef {
     deleted: boolean
     chefOfTheWeek: Boolean,
     restaurants: IRestaurant[]
+    isEditing: boolean
 };
 
 export interface IDish {
@@ -24,4 +26,5 @@ export interface IDish {
     iconMeaning: string
     description: string[]
     restaurant: IRestaurant
+    isEditing: boolean
 };

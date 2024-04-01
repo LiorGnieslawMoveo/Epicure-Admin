@@ -31,4 +31,8 @@ export class ChefsTableComponent implements AfterViewInit {
       this.dataSource.data = data;
     });
   }
+
+  toggleEditMode(row: IChef): void {
+    row.isEditing = !row.isEditing;
+  }
 }
