@@ -3,11 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { IDish } from '../../interfaces/data.interface';
-import { DISH_EXAMPLE_DATA as EXAMPLE_DATA } from '../../constants/dishExampleData';
+import { IChef } from '../../interfaces/data.interface';
+import { CHEF_EXAMPLE_DATA as EXAMPLE_DATA } from '../../constants/chefExampleData';
 
-export class DishesTableDataSource extends DataSource<IDish> {
-  data: IDish[] = EXAMPLE_DATA;
+export class ChefsTableDataSource extends DataSource<IChef> {
+  data: IChef[] = EXAMPLE_DATA;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -15,7 +15,7 @@ export class DishesTableDataSource extends DataSource<IDish> {
     super();
   }
 
-  connect(): Observable<IDish[]> {
+  connect(): Observable<IChef[]> {
     if (this.paginator && this.sort) {
       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {
@@ -28,7 +28,7 @@ export class DishesTableDataSource extends DataSource<IDish> {
 
   disconnect(): void { }
 
-  private getPagedData(data: IDish[]): IDish[] {
+  private getPagedData(data: IChef[]): IChef[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -37,7 +37,7 @@ export class DishesTableDataSource extends DataSource<IDish> {
     }
   }
 
-  private getSortedData(data: IDish[]): IDish[] {
+  private getSortedData(data: IChef[]): IChef[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -45,7 +45,7 @@ export class DishesTableDataSource extends DataSource<IDish> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'title': return compare(a.title, b.title, isAsc);
+        case 'name': return compare(a.name, b.name, isAsc);
         // case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }

@@ -19,7 +19,7 @@ export interface IChef {
 export interface IDish {
     title: string
     image: string
-    price: string
+    price: number
     deleted: boolean
     iconMeaning: string
     description: string[]

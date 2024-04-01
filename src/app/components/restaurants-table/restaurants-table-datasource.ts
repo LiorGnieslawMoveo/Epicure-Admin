@@ -3,11 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { IDish } from '../../interfaces/data.interface';
-import { DISH_EXAMPLE_DATA as EXAMPLE_DATA } from '../../constants/dishExampleData';
+import { IRestaurant } from '../../interfaces/data.interface';
+import { RESTAURANT_EXAMPLE_DATA as EXAMPLE_DATA } from '../../constants/restaurantExampleData';
 
-export class DishesTableDataSource extends DataSource<IDish> {
-  data: IDish[] = EXAMPLE_DATA;
+export class RestaurantsTableDataSource extends DataSource<IRestaurant> {
+  data: IRestaurant[] = EXAMPLE_DATA;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -15,7 +15,7 @@ export class DishesTableDataSource extends DataSource<IDish> {
     super();
   }
 
-  connect(): Observable<IDish[]> {
+  connect(): Observable<IRestaurant[]> {
     if (this.paginator && this.sort) {
       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {
@@ -28,7 +28,7 @@ export class DishesTableDataSource extends DataSource<IDish> {
 
   disconnect(): void { }
 
-  private getPagedData(data: IDish[]): IDish[] {
+  private getPagedData(data: IRestaurant[]): IRestaurant[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -37,7 +37,7 @@ export class DishesTableDataSource extends DataSource<IDish> {
     }
   }
 
-  private getSortedData(data: IDish[]): IDish[] {
+  private getSortedData(data: IRestaurant[]): IRestaurant[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }

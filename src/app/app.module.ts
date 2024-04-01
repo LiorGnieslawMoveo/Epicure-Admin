@@ -19,11 +19,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { DishesTableComponent } from './components/dishes-table/dishes-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { RestaurantsTableComponent } from './components/restaurants-table/restaurants-table.component';
+import { ChefsTableComponent } from './components/chefs-table/chefs-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DishesTableComponent,
+    RestaurantsTableComponent,
+    ChefsTableComponent,
   ],
   imports: [
     BrowserModule,
