@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { RestaurantsTableDataSource } from './restaurants-table-datasource';
 import { IRestaurant } from '../../interfaces/data.interface';
+import { RestaurantsService } from '../../services/restaurant.service';
 
 @Component({
   selector: 'app-restaurants-table',
@@ -14,13 +15,18 @@ export class RestaurantsTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<IRestaurant>;
-  dataSource = new RestaurantsTableDataSource();
+  dataSource: RestaurantsTableDataSource;
 
-  displayedColumns = ['id', 'title', 'image', 'deleted', 'chef', 'rating', 'dishes'];
+  displayedColumns = ['id', 'title', 'deleted', 'chef', 'rating', 'dishes'];
+
+  constructor(private restaurantsService: RestaurantsService) {
+    this.dataSource = new RestaurantsTableDataSource(this.restaurantsService);
+  }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    console.log(this.table.dataSource)
   }
 }

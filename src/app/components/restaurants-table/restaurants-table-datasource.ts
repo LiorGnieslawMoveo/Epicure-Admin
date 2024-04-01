@@ -4,18 +4,25 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { IRestaurant } from '../../interfaces/data.interface';
-import { RESTAURANT_EXAMPLE_DATA as EXAMPLE_DATA } from '../../constants/restaurantExampleData';
+import { RestaurantsService } from '../../services/restaurant.service';
 
 export class RestaurantsTableDataSource extends DataSource<IRestaurant> {
-  data: IRestaurant[] = EXAMPLE_DATA;
+  data: IRestaurant[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private restaurantsService: RestaurantsService) {
     super();
   }
 
+  fetchData() {
+    this.restaurantsService.getRestaurants().subscribe((data) => {
+      this.data = data;
+    })
+  }
+
   connect(): Observable<IRestaurant[]> {
+    this.fetchData();
     if (this.paginator && this.sort) {
       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {

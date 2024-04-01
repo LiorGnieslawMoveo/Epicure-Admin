@@ -17,7 +17,7 @@ export class DishesTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<IDish>;
   dataSource: DishesTableDataSource;
 
-  displayedColumns = ['id', 'title', 'image', 'description', 'price', 'deleted', 'iconMeaning', 'restaurant'];
+  displayedColumns = ['id', 'title', 'description', 'price', 'deleted', 'iconMeaning', 'restaurant'];
 
   constructor(private dishService: DishService) {
     this.dataSource = new DishesTableDataSource(this.dishService);
