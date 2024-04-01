@@ -16,7 +16,6 @@ export class ChefsTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<IChef>;
   dataSource = new ChefsTableDataSource();
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name', 'description', 'restaurants', 'chefOfTheWeek', 'deleted'];
 
   ngAfterViewInit(): void {
