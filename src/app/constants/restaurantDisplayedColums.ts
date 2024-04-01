@@ -1,0 +1,1 @@
+export const displayedColumns = ['id', 'title', 'chef', 'rating', 'dishes', 'deleted'];

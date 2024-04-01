@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { RestaurantsTableDataSource } from './restaurants-table-datasource';
 import { IRestaurant } from '../../interfaces/data.interface';
 import { RestaurantsService } from '../../services/restaurant.service';
+import { displayedColumns } from '../../constants/restaurantDisplayedColums';
 
 @Component({
   selector: 'app-restaurants-table',
@@ -16,8 +17,8 @@ export class RestaurantsTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<IRestaurant>;
   dataSource: RestaurantsTableDataSource;
+  displayedColumns = displayedColumns;
 
-  displayedColumns = ['id', 'title', 'deleted', 'chef', 'rating', 'dishes'];
 
   constructor(private restaurantsService: RestaurantsService) {
     this.dataSource = new RestaurantsTableDataSource(this.restaurantsService);
@@ -27,6 +28,8 @@ export class RestaurantsTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
-    console.log(this.table.dataSource)
+    this.dataSource.fetchData().subscribe(data => {
+      this.dataSource.data = data;
+    });
   }
 }

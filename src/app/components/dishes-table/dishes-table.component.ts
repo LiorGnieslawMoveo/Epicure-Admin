@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { DishesTableDataSource } from './dishes-table-datasource';
 import { IDish } from '../../interfaces/data.interface';
 import { DishService } from '../../services/dish.service';
+import { displayedColumns } from '../../constants/dishDisplayedColums';
 
 @Component({
   selector: 'app-dishes-table',
@@ -16,8 +17,7 @@ export class DishesTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<IDish>;
   dataSource: DishesTableDataSource;
-
-  displayedColumns = ['id', 'title', 'description', 'price', 'deleted', 'iconMeaning', 'restaurant'];
+  displayedColumns = displayedColumns;
 
   constructor(private dishService: DishService) {
     this.dataSource = new DishesTableDataSource(this.dishService);
@@ -27,6 +27,8 @@ export class DishesTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
-    console.log(this.table.dataSource)
+    this.dataSource.fetchData().subscribe(data => {
+      this.dataSource.data = data;
+    });
   }
 }

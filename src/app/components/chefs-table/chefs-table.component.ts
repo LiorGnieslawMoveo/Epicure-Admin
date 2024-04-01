@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { ChefsTableDataSource } from './chefs-table-datasource';
 import { IChef } from '../../interfaces/data.interface';
 import { ChefService } from '../../services/chef.service';
+import { displayedColumns } from '../../constants/chefDisplayedColums';
 
 @Component({
   selector: 'app-chefs-table',
@@ -16,8 +17,7 @@ export class ChefsTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<IChef>;
   dataSource: ChefsTableDataSource;
-
-  displayedColumns = ['id', 'name', 'description', 'restaurants', 'chefOfTheWeek', 'deleted'];
+  displayedColumns = displayedColumns;
 
   constructor(private chefService: ChefService) {
     this.dataSource = new ChefsTableDataSource(this.chefService);
@@ -27,5 +27,8 @@ export class ChefsTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    this.dataSource.fetchData().subscribe(data => {
+      this.dataSource.data = data;
+    });
   }
 }
