@@ -4,18 +4,25 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { IChef } from '../../interfaces/data.interface';
-import { CHEF_EXAMPLE_DATA as EXAMPLE_DATA } from '../../constants/chefExampleData';
+import { ChefService } from '../../services/chef.service';
 
 export class ChefsTableDataSource extends DataSource<IChef> {
-  data: IChef[] = EXAMPLE_DATA;
+  data: IChef[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private chefService: ChefService) {
     super();
   }
 
+  fetchData() {
+    this.chefService.getChefs().subscribe((data) => {
+      this.data = data;
+    })
+  }
+
   connect(): Observable<IChef[]> {
+    this.fetchData();
     if (this.paginator && this.sort) {
       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {

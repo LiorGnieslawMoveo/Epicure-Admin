@@ -13,7 +13,7 @@ export interface IChef {
     description: string
     deleted: boolean
     chefOfTheWeek: Boolean,
-    restaurants: string[] //IRestaurant[]
+    restaurants: IRestaurant[]
 };
 
 export interface IDish {
@@ -23,5 +23,5 @@ export interface IDish {
     deleted: boolean
     iconMeaning: string
     description: string[]
-    restaurant: string //IRestaurant
+    restaurant: IRestaurant
 };

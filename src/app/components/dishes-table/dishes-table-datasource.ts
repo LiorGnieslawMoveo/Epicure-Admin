@@ -4,18 +4,25 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { IDish } from '../../interfaces/data.interface';
-import { DISH_EXAMPLE_DATA as EXAMPLE_DATA } from '../../constants/dishExampleData';
+import { DishService } from '../../services/dish.service';
 
 export class DishesTableDataSource extends DataSource<IDish> {
-  data: IDish[] = EXAMPLE_DATA;
+  data: IDish[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private dishService: DishService) {
     super();
   }
 
+  fetchData() {
+    this.dishService.getDishes().subscribe((data) => {
+      this.data = data;
+    })
+  }
+
   connect(): Observable<IDish[]> {
+    this.fetchData();
     if (this.paginator && this.sort) {
       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {
