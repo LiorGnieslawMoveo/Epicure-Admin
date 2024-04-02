@@ -1,6 +1,12 @@
 .mat-elevation-z8 {
   margin: 20px;
 
+  .table-title {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
   .full-width-table {
     width: 100%;
   }
