@@ -14,5 +14,10 @@ export class ChefService {
     getChefs(): Observable<IChef[]> {
         return this.http.get<IChef[]>(this.apiUrl);
     }
+
+    updateChef(chefData: IChef): Observable<IChef> {
+        const url = `${this.apiUrl}/${chefData._id}`;
+        return this.http.put<IChef>(url, chefData);
+    }
 }
 

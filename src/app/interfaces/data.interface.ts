@@ -1,4 +1,5 @@
 export interface IRestaurant {
+    _id: string;
     title: string
     image: string
     deleted: boolean
@@ -9,6 +10,7 @@ export interface IRestaurant {
 };
 
 export interface IChef {
+    _id: string;
     name: string
     image: string
     description: string
@@ -19,6 +21,7 @@ export interface IChef {
 };
 
 export interface IDish {
+    _id: string;
     title: string
     image: string
     price: number

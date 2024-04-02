@@ -1,6 +1,7 @@
 import { IChef, IDish, IRestaurant } from "./data.interface"
 
 export interface IGenericItem {
+    _id: string;
     title: string;
     name: string;
     image: string;
