@@ -15,5 +15,11 @@ export class DishService {
     getDishes(): Observable<IDish[]> {
         return this.http.get<IDish[]>(this.apiUrl);
     }
+
+    updateDish(dishData: IDish): Observable<IDish> {
+        const url = `${this.apiUrl}/${dishData._id}`;
+        return this.http.put<IDish>(url, dishData);
+    }
+
 }
 
