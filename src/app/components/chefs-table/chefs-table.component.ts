@@ -7,6 +7,8 @@ import { IChef, IRestaurant } from '../../interfaces/data.interface';
 import { ChefService } from '../../services/chef.service';
 import { RestaurantsService } from '../../services/restaurant.service';
 import { displayedColumns } from '../../constants/chefDisplayedColums';
+import { MatDialog } from '@angular/material/dialog';
+import { GenericModalComponent } from '../../shared/genric-modal/generic-modal.component';
 
 @Component({
   selector: 'app-chefs-table',
@@ -19,8 +21,16 @@ export class ChefsTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<IChef>;
   dataSource: ChefsTableDataSource;
   displayedColumns = displayedColumns;
+  modalData: any = {
+    title: 'Add New Chef',
+    formFields: [
+      { label: 'Name', type: 'text', placeholder: 'Enter chef name' },
+      { label: 'Specialty', type: 'text', placeholder: 'Enter chef specialty' },
+    ]
+  };
 
-  constructor(private chefService: ChefService, private restaurantsService: RestaurantsService) {
+
+  constructor(private chefService: ChefService, private dialog: MatDialog) {
     this.dataSource = new ChefsTableDataSource(this.chefService);
   }
 
@@ -55,6 +65,16 @@ export class ChefsTableComponent implements AfterViewInit {
         this.dataSource.data[index] = updatedChef;
         this.dataSource.data = [...this.dataSource.data];
       }
+    });
+  }
+
+  openChefModal(): void {
+    console.log(this.modalData)
+    const dialogRef = this.dialog.open(GenericModalComponent, {
+      data: this.modalData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 }

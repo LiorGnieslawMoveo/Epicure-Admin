@@ -54,8 +54,6 @@
       </td>
     </ng-container>
 
-
-
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef>EDIT</th>
       <td mat-cell *matCellDef="let row">
@@ -70,7 +68,9 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
+
   <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
     [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
   </mat-paginator>
 </div>
+<button mat-raised-button color="primary" (click)="openChefModal()">Add New Chef</button>
