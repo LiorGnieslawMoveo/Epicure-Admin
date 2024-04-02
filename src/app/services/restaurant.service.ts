@@ -15,5 +15,10 @@ export class RestaurantsService {
     getRestaurants(): Observable<IRestaurant[]> {
         return this.http.get<IRestaurant[]>(this.apiUrl);
     }
+
+    updateRestaurant(restaurantData: IRestaurant): Observable<IRestaurant> {
+        const url = `${this.apiUrl}/${restaurantData._id}`;
+        return this.http.put<IRestaurant>(url, restaurantData);
+    }
 }
 

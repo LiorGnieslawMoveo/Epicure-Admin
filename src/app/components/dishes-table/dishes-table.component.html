@@ -34,7 +34,6 @@
 
     <ng-container matColumnDef="iconMeaning">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Icon Meaning</th>
-      <!-- <td mat-cell *matCellDef="let row">{{row.iconMeaning}}</td> -->
       <td mat-cell *matCellDef="let row">
         <ng-container *ngIf="!row.isEditing">{{ row.iconMeaning }}</ng-container>
         <select *ngIf="row.isEditing" [(ngModel)]="row.iconMeaning">

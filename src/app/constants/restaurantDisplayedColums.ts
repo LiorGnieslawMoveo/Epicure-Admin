@@ -1,1 +1,1 @@
-export const displayedColumns = ['id', 'title', 'chef', 'rating', 'dishes', 'deleted'];
+export const displayedColumns = ['id', 'title', 'rating', 'dishes', 'chef', 'deleted', 'edit'];
