@@ -56,7 +56,7 @@
     <ng-container matColumnDef="deleted">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>DELETED</th>
       <td mat-cell *matCellDef="let row">
-        <ng-container *ngIf="!row.isEditing">{{ row.deleted }}</ng-container>
+        <ng-container *ngIf="!row.isEditing">{{ row.deleted ? 'True' : 'False' }}</ng-container>
         <select *ngIf="row.isEditing" [(ngModel)]="row.deleted">
           <option value="true">True</option>
           <option value="false">False</option>
