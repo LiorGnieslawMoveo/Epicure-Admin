@@ -22,7 +22,6 @@ export class ChefsTableComponent implements AfterViewInit {
   chefs: IChef[] = [];
   restaurants: IRestaurant[] = [];
 
-
   constructor(private chefService: ChefService, private restaurantsService: RestaurantsService) {
     this.dataSource = new ChefsTableDataSource(this.chefService);
   }
@@ -43,11 +42,18 @@ export class ChefsTableComponent implements AfterViewInit {
 
   toggleEditMode(row: IChef): void {
     if (row.isEditing) {
+      if (row.chefOfTheWeek) {
+        const existingChefOfTheWeek = this.dataSource.data.find(chef => chef._id !== row._id && chef.chefOfTheWeek);
+        if (existingChefOfTheWeek) {
+          alert('Cannot set chefOfTheWeek to true for multiple rows.');
+          row.chefOfTheWeek = false;
+          return;
+        }
+      }
       this.saveChanges(row);
     }
     row.isEditing = !row.isEditing;
   }
-
 
   getChefs(): void {
     this.chefService.getChefs().subscribe(
