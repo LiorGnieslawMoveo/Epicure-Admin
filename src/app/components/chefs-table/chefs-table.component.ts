@@ -44,13 +44,8 @@ export class ChefsTableComponent implements AfterViewInit {
   toggleEditMode(row: IChef): void {
     if (row.isEditing) {
       this.saveChanges(row);
-      console.log(row)
-      row.isEditing = !row.isEditing;
-
-
-    } else {
-      row.isEditing = !row.isEditing;
     }
+    row.isEditing = !row.isEditing;
   }
 
 

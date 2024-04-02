@@ -46,13 +46,8 @@ export class RestaurantsTableComponent implements AfterViewInit {
   toggleEditMode(row: IRestaurant): void {
     if (row.isEditing) {
       this.saveChanges(row);
-      console.log(row)
-      row.isEditing = !row.isEditing;
-
-
-    } else {
-      row.isEditing = !row.isEditing;
     }
+    row.isEditing = !row.isEditing;
   }
 
   getChefs(): void {

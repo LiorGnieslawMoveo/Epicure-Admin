@@ -44,16 +44,29 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
             return data;
         }
 
-        return data.sort((a, b) => {
+        return data.sort((a: any, b: any) => {
             const isAsc = this.sort?.direction === 'asc';
             switch (this.sort?.active) {
-                // case 'title': return compare(a.title, b.title, isAsc);
+                case 'TITLE': return compare(a.title, b.title, isAsc);
+                case 'NAME': return compare(a.name, b.name, isAsc);
+                case 'rating': return compare(a.rating, b.rating, isAsc);
+                case 'price': return compare(a.price, b.price, isAsc);
                 default: return 0;
             }
         });
     }
 }
 
-function compare(a: string | number, b: string | number, isAsc: boolean): number {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+function compare(a: any, b: any, isAsc: boolean): number {
+    if (typeof a === 'string' && typeof b === 'string') {
+        // Sort strings alphabetically
+        return (a.toLowerCase() < b.toLowerCase() ? -1 : 1) * (isAsc ? 1 : -1);
+    } else if (typeof a === 'number' && typeof b === 'number') {
+        // Sort numbers numerically
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    } else {
+        // Fallback to default comparison
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
 }
+

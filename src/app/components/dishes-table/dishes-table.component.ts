@@ -43,13 +43,8 @@ export class DishesTableComponent implements AfterViewInit {
   toggleEditMode(row: IDish): void {
     if (row.isEditing) {
       this.saveChanges(row);
-      console.log(row)
-      row.isEditing = !row.isEditing;
-
-
-    } else {
-      row.isEditing = !row.isEditing;
     }
+    row.isEditing = !row.isEditing;
   }
 
   getDishes(): void {
