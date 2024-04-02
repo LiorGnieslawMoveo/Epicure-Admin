@@ -19,16 +19,9 @@ export class ChefsTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<IChef>;
   dataSource: ChefsTableDataSource;
   displayedColumns = displayedColumns;
-  chefs: IChef[] = [];
-  restaurants: IRestaurant[] = [];
 
   constructor(private chefService: ChefService, private restaurantsService: RestaurantsService) {
     this.dataSource = new ChefsTableDataSource(this.chefService);
-  }
-
-  ngOnInit(): void {
-    this.getChefs();
-    this.getRestaurants();
   }
 
   ngAfterViewInit(): void {
@@ -53,28 +46,6 @@ export class ChefsTableComponent implements AfterViewInit {
       this.saveChanges(row);
     }
     row.isEditing = !row.isEditing;
-  }
-
-  getChefs(): void {
-    this.chefService.getChefs().subscribe(
-      chefs => {
-        this.chefs = chefs;
-      },
-      error => {
-        console.error('Error fetching chefs:', error);
-      }
-    );
-  }
-
-  getRestaurants(): void {
-    this.restaurantsService.getRestaurants().subscribe(
-      restaurants => {
-        this.restaurants = restaurants;
-      },
-      error => {
-        console.error('Error fetching restaurants:', error);
-      }
-    );
   }
 
   saveChanges(chefData: IChef): void {
