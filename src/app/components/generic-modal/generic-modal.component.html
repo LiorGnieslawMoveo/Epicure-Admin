@@ -4,8 +4,36 @@
         <div class="form-fields">
             <div *ngFor="let field of formData.formFields" class="form-field">
                 <label>{{ field.label }}</label>
-                <input class="input-field" [type]="field.type" [placeholder]="field.placeholder"
-                    [(ngModel)]="field.value" name="{{ field.label }}" required>
+                <ng-container *ngIf="field.type === 'text'">
+                    <input class="input-field" [type]="field.type" [placeholder]="field.placeholder"
+                        [(ngModel)]="field.value" name="{{ field.label }}" required>
+                </ng-container>
+                <ng-container *ngIf="field.type === 'number' && field.label === 'Price'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Price</mat-label>
+                        <input matInput type="number" [(ngModel)]="field.value" name="{{ field.label }}" required>
+                    </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Restaurants'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Select Restaurant</mat-label>
+                        <mat-select [(ngModel)]="field.value" name="{{ field.label }}" required>
+                            <mat-option *ngFor="let restaurant of restaurants" [value]="restaurant._id">
+                                {{ restaurant.title }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Icon Meaning'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Select Icon Meaning</mat-label>
+                        <mat-select [(ngModel)]="field.value" name="{{ field.label }}" required>
+                            <mat-option value="spicy">Spicy</mat-option>
+                            <mat-option value="vegan">Vegan</mat-option>
+                            <mat-option value="vegi">Vegi</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
             </div>
             <button class="add-button" mat-button type="submit">Add</button>
             <button class="cancel-button" mat-button type="button" (click)="closeDialog()">Cancel</button>

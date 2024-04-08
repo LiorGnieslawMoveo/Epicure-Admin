@@ -21,5 +21,9 @@ export class DishService {
         return this.http.put<IDish>(url, dishData);
     }
 
+    addNewDish(dishData: IDish): Observable<IDish> {
+        return this.http.post<IDish>(this.apiUrl, dishData);
+    }
+
 }
 

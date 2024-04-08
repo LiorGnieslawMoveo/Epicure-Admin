@@ -73,7 +73,9 @@ export class ChefsTableComponent implements AfterViewInit {
   addNewChef(chefData: any): void {
     const newChef: IChef = {
       name: chefData.formFields[0].value,
-      description: chefData.formFields[1].value
+      description: chefData.formFields[1].value,
+      deleted: false,
+      isEditing: false
     }
 
     this.chefService.addNewChef(newChef).subscribe(newChef => {

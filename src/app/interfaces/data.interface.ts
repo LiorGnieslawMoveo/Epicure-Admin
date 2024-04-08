@@ -14,20 +14,20 @@ export interface IChef {
     name: string
     image?: string
     description?: string
-    deleted?: boolean
+    deleted: boolean
     chefOfTheWeek?: Boolean,
     restaurants?: IRestaurant[]
-    isEditing?: boolean
+    isEditing: boolean
 };
 
 export interface IDish {
-    _id: string;
+    _id?: string;
     title: string
-    image: string
-    price: number
+    image?: string
+    price?: number
     deleted: boolean
-    iconMeaning: string
-    description: string[]
-    restaurant: IRestaurant
+    iconMeaning?: string
+    description?: string[]
+    restaurant?: IRestaurant
     isEditing: boolean
 };

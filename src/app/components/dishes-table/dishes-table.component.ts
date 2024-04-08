@@ -5,8 +5,10 @@ import { MatSort } from '@angular/material/sort';
 import { DishesTableDataSource } from './dishes-table-datasource';
 import { IDish, IRestaurant } from '../../interfaces/data.interface';
 import { DishService } from '../../services/dish.service';
-import { displayedColumns } from '../../constants/dishDisplayedColums';
+import { MatDialog } from '@angular/material/dialog';
+import { displayedColumns, dishModalData } from '../../constants/dishData';
 import { RestaurantsService } from '../../services/restaurant.service';
+import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 
 @Component({
   selector: 'app-dishes-table',
@@ -18,11 +20,12 @@ export class DishesTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<IDish>;
   dataSource: DishesTableDataSource;
-  displayedColumns = displayedColumns;
   dishes: IDish[] = [];
   restaurants: IRestaurant[] = [];
+  displayedColumns = displayedColumns;
+  modalData = dishModalData;
 
-  constructor(private dishService: DishService, private restaurantsService: RestaurantsService) {
+  constructor(private dishService: DishService, private restaurantsService: RestaurantsService, private dialog: MatDialog) {
     this.dataSource = new DishesTableDataSource(this.dishService);
   }
 
@@ -76,6 +79,35 @@ export class DishesTableComponent implements AfterViewInit {
         this.dataSource.data[index] = updatedDish;
         this.dataSource.data = [...this.dataSource.data];
       }
+    });
+  }
+
+  openDishModal(): void {
+    const dialogRef = this.dialog.open(GenericModalComponent, {
+      data: {
+        ...this.modalData,
+        addDataFunction: (dishData: IDish) => this.addNewDish(dishData)
+      }
+    });
+  }
+
+  addNewDish(dishData: any): void {
+    const newDish: IDish = {
+      title: dishData.formFields[0].value,
+      description: dishData.formFields[1].value,
+      price: dishData.formFields[2].value,
+      iconMeaning: dishData.formFields[3].value,
+      restaurant: dishData.formFields[4].value,
+      deleted: false,
+      isEditing: false
+    }
+
+    this.dishService.addNewDish(newDish).subscribe(newDish => {
+      this.dataSource.fetchData().subscribe(data => {
+        this.dataSource.data = data;
+      });
+    }, error => {
+      console.error('Error adding new chef:', error);
     });
   }
 }

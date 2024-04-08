@@ -1,5 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { RestaurantsService } from '../../services/restaurant.service';
+import { IRestaurant } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-generic-modal',
@@ -7,16 +9,24 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './generic-modal.component.scss',
 })
 
-export class GenericModalComponent {
+export class GenericModalComponent implements OnInit {
   formData: any;
   addDataFunction: (formData: any) => void;
+  restaurants: IRestaurant[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<GenericModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private restaurantService: RestaurantsService
   ) {
     this.formData = data && data.formFields ? { ...data } : null;
     this.addDataFunction = data && data.addDataFunction ? data.addDataFunction : null;
+  }
+
+  ngOnInit(): void {
+    this.restaurantService.getRestaurants().subscribe((data) => {
+      this.restaurants = data;
+    });
   }
 
   closeDialog(): void {
