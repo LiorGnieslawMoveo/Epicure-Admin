@@ -15,12 +15,14 @@ export class GenericModalComponent implements OnInit {
   formData: any;
   addDataFunction: (formData: any) => void;
   restaurants: IRestaurant[] = [];
+  dishes: IDish[] = [];
   chefs: IChef[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<GenericModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private restaurantService: RestaurantsService,
+    private dishService: DishService,
     private chefService: ChefService,
   ) {
     this.formData = data && data.formFields ? { ...data } : null;
@@ -30,6 +32,9 @@ export class GenericModalComponent implements OnInit {
   ngOnInit(): void {
     this.restaurantService.getRestaurants().subscribe((restaurants) => {
       this.restaurants = restaurants;
+    });
+    this.dishService.getDishes().subscribe((dishes) => {
+      this.dishes = dishes.filter(dish => !dish.restaurant || dish.restaurant === undefined);
     });
     this.chefService.getChefs().subscribe((chefs) => {
       this.chefs = chefs;

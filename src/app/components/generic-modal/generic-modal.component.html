@@ -25,6 +25,22 @@
                         </mat-select>
                     </mat-form-field>
                 </ng-container>
+                <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Dishes'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Select Dish</mat-label>
+                        <mat-select [(ngModel)]="field.value" name="{{ field.label }}" required>
+                            <ng-container *ngIf="dishes && dishes.length; else noDishes">
+                                <mat-option *ngFor="let dish of dishes" [value]="dish._id">
+                                    {{ dish.title }}
+                                </mat-option>
+                            </ng-container>
+                            <ng-template #noDishes>
+                                <mat-option disabled>No Valid Dishes Available</mat-option>
+                            </ng-template>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+
                 <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Chef'">
                     <mat-form-field appearance="fill" class="dropdown-field">
                         <mat-label>Select The Chef</mat-label>
