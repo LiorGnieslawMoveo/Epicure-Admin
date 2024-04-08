@@ -33,7 +33,6 @@ export class ChefsTableComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
     this.dataSource.fetchData().subscribe(data => {
       this.dataSource.data = data;
-      console.log(this.dataSource.data)
     });
   }
 

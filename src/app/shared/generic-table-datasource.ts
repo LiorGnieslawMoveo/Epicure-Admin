@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { IGenericItem } from '../interfaces/genericItem.interface';
 
 export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IGenericItem> {
     data: IGenericItem[] = [];
@@ -40,24 +39,28 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
     }
 
     private getSortedData(data: IGenericItem[]): IGenericItem[] {
-        if (!this.sort || this.sort?.active || this.sort.direction === '') {
+        if (!this.sort || !this.sort.active || this.sort.direction === '') {
             return data;
         }
 
         return data.sort((a: any, b: any) => {
             const isAsc = this.sort?.direction === 'asc';
             switch (this.sort?.active) {
-                case "id": return compare(a.title, b.title, isAsc);
-                case "title": return compare(a.title, b.title, isAsc);
-                case "name": return compare(a.name, b.name, isAsc);
-                case "restaurants": return compare(a.title, b.title, isAsc);
-                case "deleted": return compare(a.title, b.title, isAsc);
-                case "rating": return compare(a.rating, b.rating, isAsc);
-                case "price": return compare(a.price, b.price, isAsc);
-                default: return 0;
+                case 'id':
+                case 'rating':
+                case 'price':
+                    return compare(a[this.sort.active], b[this.sort.active], isAsc);
+                case 'title':
+                case 'name':
+                case 'restaurants':
+                case 'deleted':
+                    return compare(a[this.sort.active].toLowerCase(), b[this.sort.active].toLowerCase(), isAsc);
+                default:
+                    return 0;
             }
         });
     }
+
 }
 
 function compare(a: any, b: any, isAsc: boolean): number {
@@ -69,4 +72,3 @@ function compare(a: any, b: any, isAsc: boolean): number {
     }
     return compared * (isAsc ? 1 : -1);
 }
-
