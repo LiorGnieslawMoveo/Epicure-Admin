@@ -67,7 +67,7 @@
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef>EDIT</th>
       <td mat-cell *matCellDef="let row">
-        <button (click)="toggleEditMode(row)">
+        <button mat-flat-button color="accent" (click)="toggleEditMode(row)">
           {{ row.isEditing ? 'Save' : 'Edit' }}
         </button>
       </td>
@@ -85,4 +85,6 @@
 
 <div class="button-container">
   <button mat-raised-button color="primary" (click)="openRestaurantModal()">Add New Restaurant</button>
+  <button mat-raised-button color="secondary" (click)="returnToAdminPage()">Return</button>
+
 </div>

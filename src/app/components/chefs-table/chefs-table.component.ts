@@ -8,6 +8,7 @@ import { ChefService } from '../../services/chef.service';
 import { displayedColumns, chefModalData } from '../../constants/chefData';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chefs-table',
@@ -22,7 +23,7 @@ export class ChefsTableComponent implements AfterViewInit {
   displayedColumns = displayedColumns;
   modalData = chefModalData;
 
-  constructor(private chefService: ChefService, private dialog: MatDialog) {
+  constructor(private chefService: ChefService, private dialog: MatDialog, private router: Router) {
     this.dataSource = new ChefsTableDataSource(this.chefService);
   }
 
@@ -85,6 +86,10 @@ export class ChefsTableComponent implements AfterViewInit {
     }, error => {
       console.error('Error adding new chef:', error);
     });
+  }
+
+  returnToAdminPage(): void {
+    this.router.navigate(['../']);
   }
 }
 

@@ -10,6 +10,7 @@ import { DishService } from '../../services/dish.service';
 import { ChefService } from '../../services/chef.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurants-table',
@@ -25,7 +26,7 @@ export class RestaurantsTableComponent implements AfterViewInit {
   displayedColumns = displayedColumns;
   modalData = restaurantModalData;
 
-  constructor(private restaurantsService: RestaurantsService, private chefService: ChefService, private dishService: DishService, private dialog: MatDialog) {
+  constructor(private restaurantsService: RestaurantsService, private chefService: ChefService, private dishService: DishService, private dialog: MatDialog, private router: Router) {
     this.dataSource = new RestaurantsTableDataSource(this.restaurantsService);
   }
 
@@ -83,5 +84,7 @@ export class RestaurantsTableComponent implements AfterViewInit {
       console.error('Error adding new chef:', error);
     });
   }
-
+  returnToAdminPage(): void {
+    this.router.navigate(['../']);
+  }
 }

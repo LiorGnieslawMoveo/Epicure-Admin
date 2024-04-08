@@ -23,6 +23,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { RestaurantsTableComponent } from './components/restaurants-table/restaurants-table.component';
 import { ChefsTableComponent } from './components/chefs-table/chefs-table.component';
 import { GenericModalComponent } from './components/generic-modal/generic-modal.component';
+import { AdminpageComponent } from './pages/adminpage/adminpage.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { GenericModalComponent } from './components/generic-modal/generic-modal.
     DishesTableComponent,
     RestaurantsTableComponent,
     ChefsTableComponent,
-    GenericModalComponent
+    GenericModalComponent,
+    AdminpageComponent
   ],
   imports: [
     BrowserModule,
