@@ -10,6 +10,6 @@ export class ChefsTableDataSource extends GenericTableDataSource<IChef> {
   }
 
   fetchData(): Observable<IChef[]> {
-    return this.chefService.getChefs();
+    return this.chefService.getChefsAdmin();
   }
 }

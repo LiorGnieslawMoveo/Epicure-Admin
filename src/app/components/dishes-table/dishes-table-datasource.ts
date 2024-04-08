@@ -10,6 +10,6 @@ export class DishesTableDataSource extends GenericTableDataSource<IDish> {
   }
 
   fetchData(): Observable<IDish[]> {
-    return this.dishService.getDishes();
+    return this.dishService.getDishesAdmin();
   }
 }

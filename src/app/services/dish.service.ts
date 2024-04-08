@@ -9,11 +9,16 @@ import { enviroment } from '../../enviroment/enviroment';
 })
 export class DishService {
     private apiUrl = enviroment.BASE_URL + '/dishes';
+    private apiAdminUrl = enviroment.BASE_URL + '/dishes/admin';
 
     constructor(private http: HttpClient) { }
 
     getDishes(): Observable<IDish[]> {
         return this.http.get<IDish[]>(this.apiUrl);
+    }
+
+    getDishesAdmin(): Observable<IDish[]> {
+        return this.http.get<IDish[]>(this.apiAdminUrl);
     }
 
     updateDish(dishData: IDish): Observable<IDish> {

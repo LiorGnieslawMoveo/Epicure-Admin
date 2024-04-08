@@ -8,11 +8,17 @@ import { enviroment } from '../../enviroment/enviroment';
 })
 export class ChefService {
     private apiUrl = enviroment.BASE_URL + '/chefs';
+    private apiAdminUrl = enviroment.BASE_URL + '/chefs/admin';
+
 
     constructor(private http: HttpClient) { }
 
     getChefs(): Observable<IChef[]> {
         return this.http.get<IChef[]>(this.apiUrl);
+    }
+
+    getChefsAdmin(): Observable<IChef[]> {
+        return this.http.get<IChef[]>(this.apiAdminUrl);
     }
 
     updateChef(chefData: IChef): Observable<IChef> {

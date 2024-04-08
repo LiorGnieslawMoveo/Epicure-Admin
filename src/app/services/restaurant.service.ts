@@ -9,11 +9,16 @@ import { enviroment } from '../../enviroment/enviroment';
 })
 export class RestaurantsService {
     private apiUrl = enviroment.BASE_URL + '/restaurants';
+    private apiAdminUrl = enviroment.BASE_URL + '/restaurants/admin';
 
     constructor(private http: HttpClient) { }
 
     getRestaurants(): Observable<IRestaurant[]> {
         return this.http.get<IRestaurant[]>(this.apiUrl);
+    }
+
+    getRestaurantsAdmin(): Observable<IRestaurant[]> {
+        return this.http.get<IRestaurant[]>(this.apiAdminUrl);
     }
 
     updateRestaurant(restaurantData: IRestaurant): Observable<IRestaurant> {

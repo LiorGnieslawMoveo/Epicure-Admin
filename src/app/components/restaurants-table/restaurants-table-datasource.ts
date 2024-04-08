@@ -10,6 +10,6 @@ export class RestaurantsTableDataSource extends GenericTableDataSource<IRestaura
   }
 
   fetchData(): Observable<IRestaurant[]> {
-    return this.restaurantsService.getRestaurants();
+    return this.restaurantsService.getRestaurantsAdmin();
   }
 }
