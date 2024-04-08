@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { RestaurantsTableComponent } from './components/restaurants-table/restaurants-table.component';
 import { ChefsTableComponent } from './components/chefs-table/chefs-table.component';
+import { GenericModalComponent } from './components/generic-modal/generic-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ChefsTableComponent } from './components/chefs-table/chefs-table.compon
     DishesTableComponent,
     RestaurantsTableComponent,
     ChefsTableComponent,
+    GenericModalComponent
   ],
   imports: [
     BrowserModule,

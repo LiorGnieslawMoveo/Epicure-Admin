@@ -10,14 +10,14 @@ export interface IRestaurant {
 };
 
 export interface IChef {
-    _id: string;
+    _id?: string;
     name: string
-    image: string
-    description: string
-    deleted: boolean
-    chefOfTheWeek: Boolean,
-    restaurants: IRestaurant[]
-    isEditing: boolean
+    image?: string
+    description?: string
+    deleted?: boolean
+    chefOfTheWeek?: Boolean,
+    restaurants?: IRestaurant[]
+    isEditing?: boolean
 };
 
 export interface IDish {

@@ -19,5 +19,9 @@ export class ChefService {
         const url = `${this.apiUrl}/${chefData._id}`;
         return this.http.put<IChef>(url, chefData);
     }
+
+    addNewChef(chefData: IChef): Observable<IChef> {
+        return this.http.post<IChef>(this.apiUrl, chefData);
+    }
 }
 

@@ -3,12 +3,11 @@ import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ChefsTableDataSource } from './chefs-table-datasource';
-import { IChef, IRestaurant } from '../../interfaces/data.interface';
+import { IChef } from '../../interfaces/data.interface';
 import { ChefService } from '../../services/chef.service';
-import { RestaurantsService } from '../../services/restaurant.service';
-import { displayedColumns } from '../../constants/chefDisplayedColums';
+import { displayedColumns, chefModalData } from '../../constants/chefData';
 import { MatDialog } from '@angular/material/dialog';
-import { GenricModalComponent } from '../generic-modal/genric-modal.component';
+import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 
 @Component({
   selector: 'app-chefs-table',
@@ -21,13 +20,7 @@ export class ChefsTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<IChef>;
   dataSource: ChefsTableDataSource;
   displayedColumns = displayedColumns;
-  modalData: any = {
-    title: 'Add New Chef',
-    formFields: [
-      { label: 'Name', type: 'text', placeholder: 'Enter chef name' },
-      { label: 'Specialty', type: 'text', placeholder: 'Enter chef specialty' },
-    ]
-  };
+  modalData = chefModalData;
 
   constructor(private chefService: ChefService, private dialog: MatDialog) {
     this.dataSource = new ChefsTableDataSource(this.chefService);
@@ -69,12 +62,30 @@ export class ChefsTableComponent implements AfterViewInit {
   }
 
   openChefModal(): void {
-    console.log(this.modalData)
-    const dialogRef = this.dialog.open(GenricModalComponent, {
-      data: this.modalData
+    const dialogRef = this.dialog.open(GenericModalComponent, {
+      data: {
+        ...this.modalData,
+        addDataFunction: (chefData: IChef) => this.addNewChef(chefData)
+      }
     });
+
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    });
+  }
+
+  addNewChef(chefData: any): void {
+    const newChef: IChef = {
+      name: chefData.formFields[0].value,
+      description: chefData.formFields[1].value
+    }
+
+    this.chefService.addNewChef(newChef).subscribe(newChef => {
+      this.dataSource.fetchData().subscribe(data => {
+        this.dataSource.data = data;
+      });
+    }, error => {
+      console.error('Error adding new chef:', error);
     });
   }
 }
+
