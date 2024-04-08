@@ -1,11 +1,14 @@
 <div class="modal-container">
     <h2 class="modal-title">{{ formData.title }}</h2>
-    <div class="form-fields">
-        <div *ngFor="let field of formData.formFields" class="form-field">
-            <label>{{ field.label }}</label>
-            <input class="input-field" [type]="field.type" [placeholder]="field.placeholder" [(ngModel)]="field.value">
+    <form #form="ngForm" (ngSubmit)="addData()" ngNativeValidate>
+        <div class="form-fields">
+            <div *ngFor="let field of formData.formFields" class="form-field">
+                <label>{{ field.label }}</label>
+                <input class="input-field" [type]="field.type" [placeholder]="field.placeholder"
+                    [(ngModel)]="field.value" name="{{ field.label }}" required>
+            </div>
+            <button class="add-button" mat-button type="submit">Add</button>
+            <button class="cancel-button" mat-button type="button" (click)="closeDialog()">Cancel</button>
         </div>
-        <button class="add-button" mat-button type="button" (click)="addData()">Add</button>
-        <button class="cancel-button" mat-button type="button" (click)="closeDialog()">Cancel</button>
-    </div>
+    </form>
 </div>

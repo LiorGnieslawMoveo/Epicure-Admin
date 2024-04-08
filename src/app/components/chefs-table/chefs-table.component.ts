@@ -68,9 +68,6 @@ export class ChefsTableComponent implements AfterViewInit {
         addDataFunction: (chefData: IChef) => this.addNewChef(chefData)
       }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-    });
   }
 
   addNewChef(chefData: any): void {
