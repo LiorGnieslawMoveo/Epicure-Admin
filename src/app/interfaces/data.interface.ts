@@ -1,7 +1,7 @@
 export interface IRestaurant {
-    _id: string;
+    _id?: string;
     title: string
-    image: string
+    image?: string
     deleted: boolean
     chef: IChef
     rating: Number

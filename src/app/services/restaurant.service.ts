@@ -20,5 +20,9 @@ export class RestaurantsService {
         const url = `${this.apiUrl}/${restaurantData._id}`;
         return this.http.put<IRestaurant>(url, restaurantData);
     }
+
+    addNewRestaurant(restaurantData: IRestaurant): Observable<IRestaurant> {
+        return this.http.post<IRestaurant>(this.apiUrl, restaurantData);
+    }
 }
 
