@@ -25,16 +25,6 @@
                         </mat-select>
                     </mat-form-field>
                 </ng-container>
-                <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Dishes'">
-                    <mat-form-field appearance="fill" class="dropdown-field">
-                        <mat-label>Select Dishes</mat-label>
-                        <mat-select [(ngModel)]="field.value" name="{{ field.label }}" required multiple>
-                            <mat-option *ngFor="let dish of dishes" [value]="dish._id">
-                                {{ dish.title }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </ng-container>
                 <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Chef'">
                     <mat-form-field appearance="fill" class="dropdown-field">
                         <mat-label>Select The Chef</mat-label>
@@ -57,7 +47,7 @@
                 </ng-container>
                 <ng-container *ngIf="field.type === 'number' && field.label === 'Rating'">
                     <mat-form-field appearance="fill" class="number-field">
-                        <mat-label>Select Rating</mat-label>
+                        <mat-label>Enter Rating (1-5)</mat-label>
                         <input matInput type="number" [(ngModel)]="field.value" name="{{ field.label }}" min="1" max="5"
                             required>
                     </mat-form-field>
