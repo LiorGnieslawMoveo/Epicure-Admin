@@ -14,6 +14,7 @@ import { ChefService } from '../../services/chef.service';
   templateUrl: './restaurants-table.component.html',
   styleUrl: './restaurants-table.component.scss'
 })
+
 export class RestaurantsTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

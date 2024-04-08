@@ -17,8 +17,8 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
     abstract fetchData(): Observable<IGenericItem[]>;
 
     connect(): Observable<IGenericItem[]> {
-        this.fetchData();
         if (this.paginator && this.sort) {
+            console.log(this.sort)
             return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
                 .pipe(map(() => {
                     return this.getPagedData(this.getSortedData([...this.data]));
@@ -47,10 +47,13 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
         return data.sort((a: any, b: any) => {
             const isAsc = this.sort?.direction === 'asc';
             switch (this.sort?.active) {
-                case 'TITLE': return compare(a.title, b.title, isAsc);
-                case 'NAME': return compare(a.name, b.name, isAsc);
-                case 'rating': return compare(a.rating, b.rating, isAsc);
-                case 'price': return compare(a.price, b.price, isAsc);
+                case "id": return compare(a.title, b.title, isAsc);
+                case "title": return compare(a.title, b.title, isAsc);
+                case "name": return compare(a.name, b.name, isAsc);
+                case "restaurants": return compare(a.title, b.title, isAsc);
+                case "deleted": return compare(a.title, b.title, isAsc);
+                case "rating": return compare(a.rating, b.rating, isAsc);
+                case "price": return compare(a.price, b.price, isAsc);
                 default: return 0;
             }
         });
@@ -58,15 +61,12 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
 }
 
 function compare(a: any, b: any, isAsc: boolean): number {
+    let compared = 1;
     if (typeof a === 'string' && typeof b === 'string') {
-        // Sort strings alphabetically
-        return (a.toLowerCase() < b.toLowerCase() ? -1 : 1) * (isAsc ? 1 : -1);
-    } else if (typeof a === 'number' && typeof b === 'number') {
-        // Sort numbers numerically
-        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+        compared = a.toLowerCase() < b.toLowerCase() ? -1 : 1;
     } else {
-        // Fallback to default comparison
-        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+        compared = a < b ? -1 : 1;
     }
+    return compared * (isAsc ? 1 : -1);
 }
 

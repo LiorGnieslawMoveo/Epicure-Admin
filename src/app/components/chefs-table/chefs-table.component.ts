@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,7 +8,7 @@ import { ChefService } from '../../services/chef.service';
 import { RestaurantsService } from '../../services/restaurant.service';
 import { displayedColumns } from '../../constants/chefDisplayedColums';
 import { MatDialog } from '@angular/material/dialog';
-import { GenericModalComponent } from '../../shared/genric-modal/generic-modal.component';
+import { GenricModalComponent } from '../generic-modal/genric-modal.component';
 
 @Component({
   selector: 'app-chefs-table',
@@ -29,7 +29,6 @@ export class ChefsTableComponent implements AfterViewInit {
     ]
   };
 
-
   constructor(private chefService: ChefService, private dialog: MatDialog) {
     this.dataSource = new ChefsTableDataSource(this.chefService);
   }
@@ -40,6 +39,7 @@ export class ChefsTableComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
     this.dataSource.fetchData().subscribe(data => {
       this.dataSource.data = data;
+      console.log(this.dataSource.data)
     });
   }
 
@@ -70,7 +70,7 @@ export class ChefsTableComponent implements AfterViewInit {
 
   openChefModal(): void {
     console.log(this.modalData)
-    const dialogRef = this.dialog.open(GenericModalComponent, {
+    const dialogRef = this.dialog.open(GenricModalComponent, {
       data: this.modalData
     });
     dialogRef.afterClosed().subscribe(result => {

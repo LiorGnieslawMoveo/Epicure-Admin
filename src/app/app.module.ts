@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -33,6 +34,7 @@ import { ChefsTableComponent } from './components/chefs-table/chefs-table.compon
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    CommonModule,
     MatTableModule,
     ReactiveFormsModule,
     FormsModule,
