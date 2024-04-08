@@ -17,7 +17,6 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
 
     connect(): Observable<IGenericItem[]> {
         if (this.paginator && this.sort) {
-            console.log(this.sort)
             return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
                 .pipe(map(() => {
                     return this.getPagedData(this.getSortedData([...this.data]));
@@ -45,22 +44,14 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
 
         return data.sort((a: any, b: any) => {
             const isAsc = this.sort?.direction === 'asc';
-            switch (this.sort?.active) {
-                case 'id':
-                case 'rating':
-                case 'price':
-                    return compare(a[this.sort.active], b[this.sort.active], isAsc);
-                case 'title':
-                case 'name':
-                case 'restaurants':
-                case 'deleted':
-                    return compare(a[this.sort.active].toLowerCase(), b[this.sort.active].toLowerCase(), isAsc);
-                default:
-                    return 0;
+            if (this.sort?.active) {
+                return compare(a[this.sort.active], b[this.sort.active], isAsc);
+            }
+            else {
+                return 0;
             }
         });
     }
-
 }
 
 function compare(a: any, b: any, isAsc: boolean): number {

@@ -84,6 +84,7 @@ export class RestaurantsTableComponent implements AfterViewInit {
       console.error('Error adding new chef:', error);
     });
   }
+
   returnToAdminPage(): void {
     this.router.navigate(['../']);
   }
