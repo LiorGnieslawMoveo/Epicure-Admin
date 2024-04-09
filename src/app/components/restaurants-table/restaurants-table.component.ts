@@ -31,18 +31,20 @@ export class RestaurantsTableComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.dataSource.fetchData().subscribe(data => {
+      this.dataSource.data = data;
+      this.table.dataSource = new RestaurantsTableDataSource(this.restaurantsService);
+      this.table.dataSource = this.dataSource;
+      this.dataSource.getSortedData(this.dataSource.data);
+
+    });
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
-    this.dataSource.fetchData().subscribe(data => {
-      this.dataSource.data = data;
-    });
   }
 
   initSortAndPaginator() {
     this.dataSource.getSortedData(this.dataSource.data);
-    this.table.dataSource = new RestaurantsTableDataSource(this.restaurantsService);
-    this.table.dataSource = this.dataSource;
   }
 
   toggleEditMode(row: IRestaurant): void {

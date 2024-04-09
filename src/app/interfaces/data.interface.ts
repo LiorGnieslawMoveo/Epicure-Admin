@@ -11,7 +11,7 @@ export interface IRestaurant {
 
 export interface IChef {
     _id?: string;
-    name: string
+    name?: string
     image?: string
     description?: string
     deleted: boolean
