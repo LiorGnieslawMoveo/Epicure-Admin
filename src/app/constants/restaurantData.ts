@@ -5,7 +5,7 @@ export const restaurantModalData: any = {
     formFields: [
         { label: 'Title', type: 'text', placeholder: 'Enter Restaurant title' },
         { label: 'Rating', type: 'number', placeholder: 'Enter Restaurant rating' },
-        { label: 'Dishes', type: 'dropdown', placeholder: 'select dishes' },
         { label: 'Chef', type: 'dropdown', placeholder: 'select the chef' },
+        { label: 'Dishes', type: 'dropdown', placeholder: 'select dishes' },
     ]
 };

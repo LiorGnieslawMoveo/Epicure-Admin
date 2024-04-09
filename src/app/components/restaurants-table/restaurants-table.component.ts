@@ -76,17 +76,32 @@ export class RestaurantsTableComponent implements AfterViewInit {
 
   addNewRestaurant(restaurantData: any): void {
     const newRestaurant: IRestaurant = {
-      title: restaurantData.formFields[0].value,
-      rating: restaurantData.formFields[1].value,
-      dishes: restaurantData.formFields[2].value,
-      chef: restaurantData.formFields[3].value,
       deleted: false,
       isEditing: false
     }
+    restaurantData.formFields.forEach((field: any) => {
+      switch (field.label) {
+        case 'Title':
+          newRestaurant.title = field.value;
+          break;
+        case 'Rating':
+          newRestaurant.rating = field.value;
+          break;
+        case 'Chef':
+          newRestaurant.chef = field.value;
+          break;
+        case 'Dishes':
+          newRestaurant.dishes = field.value;
+          break;
+      }
+    });
+
 
     this.restaurantsService.addNewRestaurant(newRestaurant).subscribe(newRestaurant => {
       this.dataSource.fetchData().subscribe(data => {
         this.dataSource.data = data;
+        this.table.dataSource = new RestaurantsTableDataSource(this.restaurantsService);
+        this.table.dataSource = this.dataSource;
       });
     }, error => {
       console.error('Error adding new chef:', error);
