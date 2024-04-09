@@ -1,0 +1,77 @@
+<div class="modal-container">
+    <h2 class="modal-title">{{ formData.title }}</h2>
+    <form #form="ngForm" (ngSubmit)="addData()" ngNativeValidate>
+        <div class="form-fields">
+            <div *ngFor="let field of formData.formFields" class="form-field">
+                <label>{{ field.label }}</label>
+                <ng-container *ngIf="field.type === 'text'">
+                    <input class="input-field" [type]="field.type" [placeholder]="field.placeholder"
+                        [(ngModel)]="field.value" name="{{ field.label }}" required>
+                </ng-container>
+                <ng-container *ngIf="field.type === 'number' && field.label === 'Price'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Price</mat-label>
+                        <input matInput type="number" [(ngModel)]="field.value" name="{{ field.label }}" required>
+                    </mat-form-field>
+                </ng-container>
+
+                <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Restaurants'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Select Restaurant</mat-label>
+                        <mat-select [(ngModel)]="field.value" name="{{ field.label }}" required>
+                            <mat-option *ngFor="let restaurant of restaurants" [value]="restaurant._id">
+                                {{ restaurant.title }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Dishes'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Select Dish</mat-label>
+                        <mat-select [(ngModel)]="field.value" name="{{ field.label }}" required>
+                            <ng-container *ngIf="dishes && dishes.length; else noDishes">
+                                <mat-option *ngFor="let dish of dishes" [value]="dish._id">
+                                    {{ dish.title }}
+                                </mat-option>
+                            </ng-container>
+                            <ng-template #noDishes>
+                                <mat-option disabled>No Valid Dishes Available</mat-option>
+                            </ng-template>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+
+                <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Chef'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Select The Chef</mat-label>
+                        <mat-select [(ngModel)]="field.value" name="{{ field.label }}" required>
+                            <mat-option *ngFor="let chef of chefs" [value]="chef._id">
+                                {{ chef.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="field.type === 'dropdown' && field.label === 'Icon Meaning'">
+                    <mat-form-field appearance="fill" class="dropdown-field">
+                        <mat-label>Select Icon Meaning</mat-label>
+                        <mat-select [(ngModel)]="field.value" name="{{ field.label }}" required>
+                            <mat-option value="spicy">Spicy</mat-option>
+                            <mat-option value="vegan">Vegan</mat-option>
+                            <mat-option value="vegi">Vegi</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="field.type === 'number' && field.label === 'Rating'">
+                    <mat-form-field appearance="fill" class="number-field">
+                        <mat-label>Enter Rating (1-5)</mat-label>
+                        <input matInput type="number" [(ngModel)]="field.value" name="{{ field.label }}" min="1" max="5"
+                            required>
+                    </mat-form-field>
+                </ng-container>
+
+            </div>
+            <button class="add-button" mat-button type="submit">Add</button>
+            <button class="cancel-button" mat-button type="button" (click)="closeDialog()">Cancel</button>
+        </div>
+    </form>
+</div>
