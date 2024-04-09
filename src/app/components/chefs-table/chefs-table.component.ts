@@ -78,15 +78,26 @@ export class ChefsTableComponent implements AfterViewInit {
 
   addNewChef(chefData: any): void {
     const newChef: IChef = {
-      name: chefData.formFields[0].value,
-      description: chefData.formFields[1].value,
       deleted: false,
       isEditing: false
     }
 
+    chefData.formFields.forEach((field: any) => {
+      switch (field.label) {
+        case 'Name':
+          newChef.name = field.value;
+          break;
+        case 'Description':
+          newChef.description = field.value;
+          break;
+      }
+    });
+
     this.chefService.addNewChef(newChef).subscribe(newChef => {
       this.dataSource.fetchData().subscribe(data => {
         this.dataSource.data = data;
+        this.table.dataSource = new ChefsTableDataSource(this.chefService);
+        this.table.dataSource = this.dataSource;
       });
     }, error => {
       console.error('Error adding new chef:', error);
