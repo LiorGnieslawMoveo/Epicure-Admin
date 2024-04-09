@@ -101,14 +101,29 @@ export class DishesTableComponent implements AfterViewInit {
 
   addNewDish(dishData: any): void {
     const newDish: IDish = {
-      title: dishData.formFields[0].value,
-      description: dishData.formFields[1].value,
-      price: dishData.formFields[2].value,
-      iconMeaning: dishData.formFields[3].value,
-      restaurant: dishData.formFields[4].value,
       deleted: false,
       isEditing: false
     }
+
+    dishData.formFields.forEach((field: any) => {
+      switch (field.label) {
+        case 'Title':
+          newDish.title = field.value;
+          break;
+        case 'Description':
+          newDish.description = field.value;
+          break;
+        case 'Price':
+          newDish.price = field.value;
+          break;
+        case 'Icon Meaning':
+          newDish.iconMeaning = field.value;
+          break;
+        case 'Restaurants':
+          newDish.restaurant = field.value;
+          break;
+      }
+    });
 
     this.dishService.addNewDish(newDish).subscribe(newDish => {
       this.dataSource.fetchData().subscribe(data => {

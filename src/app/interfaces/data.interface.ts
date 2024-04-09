@@ -22,7 +22,7 @@ export interface IChef {
 
 export interface IDish {
     _id?: string;
-    title: string
+    title?: string
     image?: string
     price?: number
     deleted: boolean
