@@ -1,11 +1,11 @@
 export interface IRestaurant {
     _id?: string;
-    title: string
+    title?: string
     image?: string
     deleted: boolean
-    chef: IChef
-    rating: Number
-    dishes: IDish[]
+    chef?: IChef
+    rating?: Number
+    dishes?: IDish[]
     isEditing: boolean
 };
 
