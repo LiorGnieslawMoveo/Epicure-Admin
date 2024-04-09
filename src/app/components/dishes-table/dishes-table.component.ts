@@ -44,6 +44,12 @@ export class DishesTableComponent implements AfterViewInit {
     });
   }
 
+  initSortAndPaginator() {
+    this.dataSource.getSortedData(this.dataSource.data);
+    this.table.dataSource = new DishesTableDataSource(this.dishService);
+    this.table.dataSource = this.dataSource;
+  }
+
   toggleEditMode(row: IDish): void {
     if (row.isEditing) {
       this.saveChanges(row);

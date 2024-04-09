@@ -39,6 +39,12 @@ export class RestaurantsTableComponent implements AfterViewInit {
     });
   }
 
+  initSortAndPaginator() {
+    this.dataSource.getSortedData(this.dataSource.data);
+    this.table.dataSource = new RestaurantsTableDataSource(this.restaurantsService);
+    this.table.dataSource = this.dataSource;
+  }
+
   toggleEditMode(row: IRestaurant): void {
     if (row.isEditing) {
       this.saveChanges(row);

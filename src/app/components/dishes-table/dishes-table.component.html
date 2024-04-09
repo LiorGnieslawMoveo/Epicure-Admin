@@ -1,6 +1,7 @@
 <div class="mat-elevation-z8">
   <h2 class="table-title">Dishes Table</h2>
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
+  <table [dataSource]="dataSource" mat-table class="full-width-table" matSort aria-label="Elements"
+    (matSortChange)="initSortAndPaginator()">
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>

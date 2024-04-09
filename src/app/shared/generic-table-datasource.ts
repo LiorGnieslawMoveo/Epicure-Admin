@@ -22,13 +22,13 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
                     return this.getPagedData(this.getSortedData([...this.data]));
                 }));
         } else {
-            throw Error('Please set the paginator and sort on the data source before connecting.');
+            return this.fetchData();
         }
     }
 
     disconnect(): void { }
 
-    private getPagedData(data: IGenericItem[]): IGenericItem[] {
+    public getPagedData(data: IGenericItem[]): IGenericItem[] {
         if (this.paginator) {
             const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
             return data.splice(startIndex, this.paginator.pageSize);
@@ -37,7 +37,7 @@ export abstract class GenericTableDataSource<IGenericItem> extends DataSource<IG
         }
     }
 
-    private getSortedData(data: IGenericItem[]): IGenericItem[] {
+    public getSortedData(data: IGenericItem[]): IGenericItem[] {
         if (!this.sort || !this.sort.active || this.sort.direction === '') {
             return data;
         }

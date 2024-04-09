@@ -36,6 +36,12 @@ export class ChefsTableComponent implements AfterViewInit {
     });
   }
 
+  initSortAndPaginator() {
+    this.dataSource.getSortedData(this.dataSource.data);
+    this.table.dataSource = new ChefsTableDataSource(this.chefService);
+    this.table.dataSource = this.dataSource;
+  }
+
   toggleEditMode(row: IChef): void {
     if (row.isEditing) {
       if (row.chefOfTheWeek) {
