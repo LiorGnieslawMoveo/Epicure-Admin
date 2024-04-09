@@ -41,7 +41,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>DESCRIPTION</th>
       <td mat-cell *matCellDef="let row">
         <ng-container *ngIf="!row.isEditing">{{ row.description }}</ng-container>
-        <input matInput *ngIf="row.isEditing" type="text" [(ngModel)]="row.description" />
+        <textarea matNativeControl class="input-description" *ngIf="row.isEditing" type="text"
+          [(ngModel)]="row.description"></textarea>
       </td>
     </ng-container>
 
